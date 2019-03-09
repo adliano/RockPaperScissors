@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>21-Events Events!</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" />
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+          <div class="jumbotron">
+            <h2>You just typed <span id="user-text"><strong>...Nothing.</strong></span></h2>
+          </div>
+        </div>
+        <div class="col"><button type="button" class="btn btn-outline-info">Click Me</button></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              Mouse Coordinates
+            </div>
+            <div class="card-body">
+              <p class="card-text mouse-coord"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<footer class="footer mt-auto py-3">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>
+    <!-- We have to put this at the end of our document to ensure the user-text
+         span exists when we try to access it. -->
+    <script type="text/javascript">
+      // Let's start by grabbing references to our elements.
+
+      var userText = document.getElementById("user-text");
+
+      var buttons = document.getElementsByTagName("button");  
+
+      var coords = document.getElementsByClassName("mouse-coord");
+      
+      var numOfClicks = 0;
+
+      // Next, we give JavaScript a function to execute when our event fires.
+      document.onkeyup = (event) => userText.textContent = event.key;
+      buttons[0].onclick = (event) => {
+        numOfClicks++;
+        buttons[0].innerText = `Click #${numOfClicks}!`;
+      }
+      document.onmousemove = (event) => coords[0].innerText = `x: ${event.x}  y: ${event.y}`;
+      
+    </script>
+  </body>
+</html>

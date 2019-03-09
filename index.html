@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Rock Paper Scissors</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+    <!-- * * * * * Header * * * * * -->
+    <nav class="navbar bg-primary">
+        <h1 class="navbar-brand text-light">Rock Paper Scissors</h1>
+        <h3 class="text-light">Games Left:<span id="gamesLeft"></span></h3>
+    </nav><!-- END Header -->
+
+    <!-- * * * * * Main Content * * * * * -->
+    <div class="row text-center my-3">
+        <!-- Usr Image -->
+        <div class="col border border-dark mx-5">
+            <h4 class="bg-info">You</h4>
+            <img class="rounded" id="usrImg" src="./assets/images/question.png" alt="">
+            <h1>Score:<span id="usrScore"></span></h1>
+        </div><!-- END usr image -->
+        <!-- Computer Image -->
+        <div class="col border border-dark mx-5">
+            <h4 class="bg-info">Computer</h4>
+            <img class="rounded" id="compImg" src="./assets/images/question.png" alt="">
+            <h1>Score: <span id="machineScore"></span></h1>
+        </div><!-- END computer image -->
+    </div>
+
+    <!-- Script -->
+    <script type="text/javascript">
+
+    // display an alert explain how to play
+    alert("To Play press: \nr for ROCK \np for Paper and \ns for Scissors");
+    // get number of games user want to play
+    let numberOfGames = prompt("How many games do you like to Play?", "5");
+    document.getElementById("gamesLeft").textContent = numberOfGames;
+
+    // Create an array with all choices
+    const choices = ["r", "p", "s"];
+    // Create an array to hold images path, this will be used to set the image of the choice
+    const images = ["./assets/images/rock.png", "./assets/images/paper.png", "./assets/images/scissors.png"];
+    // get the element where user score will be displayed
+    var usrShowScore = document.getElementById("usrScore");
+    // get the element where computer score will be displayed
+    var compShowScore = document.getElementById("machineScore");
+    // init the counter for user and computer
+    var usrCounter = computerCounter = 0
+
+    // get the keyboard event from user
+    document.onkeyup = function (event) {
+        // get witch key was pressed by user
+        let usrGuess = event.key;
+        // create a random index to get computer choice
+        let compRandomIndex = Math.floor(Math.random() * choices.length);
+        // get computer choice
+        let computerGuess = choices[compRandomIndex];
+
+        // check if user pressed a valid key (r,p,s)
+        if (choices.includes(usrGuess) && numberOfGames >= 0) {
+            // check if user won the bet
+            if (usrGuess === "r" && computerGuess === "s" ||  // rock beat scissors
+                usrGuess === "s" && computerGuess === "p" ||  // scissors beat paper
+                usrGuess === "p" && computerGuess === "r") {   // paper beat rock
+
+                usrCounter++;
+
+            }
+            // TODO: should i check if is tie???
+            else if (usrGuess == computerGuess) {
+                console.log("TIE!");
+            }
+            // if user lost than computer won
+            else {
+                computerCounter++;
+            }
+
+            // set the image of the user option 
+            document.getElementById("usrImg").src = images[choices.indexOf(usrGuess)];
+            // display user score
+            usrShowScore.textContent = usrCounter;
+            // set image of computer option
+            document.getElementById("compImg").src = images[compRandomIndex];
+            // display computer score
+            compShowScore.textContent = computerCounter;
+
+            // update counter
+            numberOfGames-- ;
+        }
+        document.getElementById("gamesLeft").textContent = (numberOfGames>=0) ? numberOfGames : "GAME OVER";
+    }
+
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
